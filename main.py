@@ -16,9 +16,11 @@ def add_clicked():
 if __name__ == '__main__':
     # root
     root = CTk()
+    set_appearance_mode("system")
+    root.iconbitmap(icon_path)
     root.title("webDirect")
     root.geometry(f"{x}x{y}")
-    root.iconbitmap(icon_path)
+
 
     # Frames
     top_frame = CTkFrame(root, width=x, height=50, border_width=5)
