@@ -4,8 +4,11 @@ from PIL import Image, ImageTk
 
 x = 800
 y = 500
+
 icon_path = "images/webdirectlogo.ico"
 plusImg = CTkImage(Image.open(r"images/plusimage.png"))
+closed_trash_image = CTkImage(Image.open(r"images/closed_trash_can.png"))
+opened_trash_image = CTkImage(Image.open(r"images/open_trash_can.png"))
 
 
 class EntryFrame(CTkFrame):
@@ -16,10 +19,21 @@ class EntryFrame(CTkFrame):
         site.grid(row=0, column=0)
 
         redirect_website = CTkEntry(master=self)
-        redirect_website.grid(row=0, column=1, padx=x / 4)
+        redirect_website.grid(row=0, column=1, padx=x / 4, )
 
-        deleteButton = CTkButton(master=self, text="delete", command=self.delete_clicked)
-        deleteButton.grid(row=0, column=2)
+        switch = CTkSwitch()
+
+        self.deleteButton = CTkButton(master=self, text="delete", command=self.delete_clicked,
+                                      compound='left', image=closed_trash_image, fg_color="red")
+        self.deleteButton.bind("<Enter>", self.on_enter)
+        self.deleteButton.bind("<Leave>", self.on_leave)
+        self.deleteButton.grid(row=0, column=2)
+
+    def on_enter(self, event):
+        self.deleteButton.configure(image=opened_trash_image, fg_color="red")
+
+    def on_leave(self, event):
+        self.deleteButton.configure(image=closed_trash_image, fg_color="red")
 
     def delete_clicked(self):
         self.destroy()
