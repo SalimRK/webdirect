@@ -8,26 +8,16 @@ icon_path = "images/webdirectlogo.ico"
 plusImg = CTkImage(Image.open(r"images/plusimage.png"))
 
 
-class Entry(CTk):
-    def __int__(self, site, redirect_website, isOn):
-        self.site = site
-        self.redirect_website = redirect_website
-        self.isOn = isOn
-
-    def delete(self):
-        pass
+class App(CTk):
+    def __int__(self,selfFrame, site, redirect_website):
+        super().__init__()
+        self.selfFrame = CTkFrame(web_frame).grid(sticky="we")
+        self.site = CTkEntry(selfFrame).grid(row=0, column=0, text="site")
+        self.redirect_website = CTkEntry(selfFrame).grid(row=0, column=0,text="redirect website")
 
 
 def add_clicked():
-    entry_frame = CTkFrame(web_frame)
-    entry1 = CTkEntry(entry_frame)
-    entry2 = CTkEntry(entry_frame)
-    entry3 = CTkEntry(entry_frame)
-
-    entry_frame.grid(sticky="we")
-    entry1.grid(row=0, column=0)
-    entry2.grid(row=0, column=1, padx=10)
-    entry3.grid(row=0, column=2)
+    query = Entry("f1")
 
 
 if __name__ == '__main__':
