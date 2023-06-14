@@ -7,8 +7,8 @@ import os
 x = 800
 y = 500
 
-hostFile = os.path.join("C:", "Windows", "System32", "drivers", "etc", "hosts")
-icon_path = os.path.join("images/webdirectlogo.ico")
+hostFile = "C:\Windows\System32\drivers\etc"
+icon_path = "images/webdirectlogo.ico"
 plusImg = CTkImage(Image.open(r"images/plusimage.png"))
 closed_trash_image = CTkImage(Image.open(r"images/closed_trash_can.png"))
 opened_trash_image = CTkImage(Image.open(r"images/open_trash_can.png"))
@@ -248,5 +248,6 @@ class App(CTk):
 
 
 if __name__ == '__main__':
+    print(hostFile)
     app = App()
     app.mainloop()
