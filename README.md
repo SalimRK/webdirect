@@ -1,10 +1,8 @@
-# Project Name
-
-Short project description or tagline goes here.
+# webDirect
 
 ## Overview
 
-Explain what your project does and why it's useful. You can also mention any relevant badges or status indicators you'd like to include.
+The "webDirect" app allows users to modify the host file on their system, which is a text file used to map IP addresses to domain names. By modifying this file, users can redirect specific websites to different IP addresses or domains.
 
 ## Installation
 
@@ -14,14 +12,10 @@ Describe the step-by-step process for installing your project, including any pre
 
 Explain how users can use your project or provide code examples and instructions. You can also include screenshots or other visuals if applicable.
 
-## Contributing
-
-Specify any guidelines for contributors, such as bug reporting, feature suggestions, or pull request instructions.
-
 ## License
 
-Indicate the license under which your project is distributed. If you're using multiple licenses or have specific files with different licenses, please mention that as well.
+This project is licensed under the [MIT License](https://github.com/SalimRK/webdirect/blob/main/LICENSE.txt "MIT License").
 
 ## Contact
 
-For any questions or inquiries, please contact rizksalimrizk.com
+For any questions or inquiries, please contact rizksalimrizk@gmail.com
