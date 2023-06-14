@@ -53,6 +53,20 @@ def uncomment_query(file_name, query_text1, query_text2):
         file.writelines(modified_lines)
 
 
+def delete_query(file_name, query_text1, query_text2):
+    query_text = query(query_text1, query_text2)
+    with open(file_name, 'r') as file:
+        lines = file.readlines()
+    modified_lines = []
+    for line in lines:
+        if line.strip() != query_text and line.strip() != '# ' + query_text:
+            modified_lines.append(line)
+
+    # Write modified lines back to the file
+    with open(file_name, 'w') as file:
+        file.writelines(modified_lines)
+
+
 class AddWindow(CTkToplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -145,6 +159,7 @@ class EntryFrame(CTkFrame):
 
     # delete button method
     def delete_clicked(self):
+        delete_query(hostFile, self.site_text, self.redirect_website_text)
         self.destroy()
 
 
