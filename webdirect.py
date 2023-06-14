@@ -21,6 +21,38 @@ def query(website, redirected):
     return query_site
 
 
+def comment_query(file_name, query_text1, query_text2):
+    query_text = query(query_text1, query_text2)
+    with open(file_name, 'r') as file:
+        lines = file.readlines()
+
+    modified_lines = []
+    for line in lines:
+        if line.strip() == query_text:
+            line = '# ' + line.lstrip()  # Add '#' at the start
+        modified_lines.append(line)
+
+    # Write modified lines back to the file
+    with open(hostFile, 'w') as file:
+        file.writelines(modified_lines)
+
+
+def uncomment_query(file_name, query_text1, query_text2):
+    query_text = query(query_text1, query_text2)
+    with open(file_name, 'r') as file:
+        lines = file.readlines()
+
+    modified_lines = []
+    for line in lines:
+        if line.strip() == '# ' + query_text:
+            line = line.lstrip('# ')  # Remove '#' at the start
+        modified_lines.append(line)
+
+    # Write modified lines back to the file
+    with open(file_name, 'w') as file:
+        file.writelines(modified_lines)
+
+
 class AddWindow(CTkToplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -49,17 +81,16 @@ class AddWindow(CTkToplevel):
         site_label_text = self.site.get()
         redirect_website_label_text = self.redirect_website.get()
         pattern = query(site_label_text, redirect_website_label_text)
-        f = open(hostFile, "r")
-        match_found = False
-        for line in f:
-            if re.search(pattern, line):
-                match_found = True
-        f.close()
+
+        with open(hostFile, "r") as file:
+            match_found = False
+            for line in file:
+                if re.search(pattern, line):
+                    match_found = True
 
         if not match_found:
-            f = open(hostFile, "a")
-            f.write(pattern + "\n")
-            f.close()
+            with open(hostFile, "a") as file:
+                file.write(pattern + "\n")
             self.master.master.web_frame.add_element(site_label_text, redirect_website_label_text)
         else:
             print("already exist")
