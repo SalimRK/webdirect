@@ -67,6 +67,35 @@ def delete_query(file_name, query_text1, query_text2):
         file.writelines(modified_lines)
 
 
+def load_query(filename):
+    with open(filename, 'r') as file:
+        content = file.readlines()
+
+    pattern = r'^(?:# )?([^#].+?)\s{9}(\S+)$'
+    matches = []
+
+    for line in content:
+        match = re.search(pattern, line)
+        if match:
+            g1 = match.group(1)
+            g2 = match.group(2)
+            matches.append((g1, g2))
+
+    return matches
+
+
+def get_query_state(file_name, query_text1, query_text2):
+    pattern = query(query_text1, query_text2)
+    with open(file_name, 'r') as file:
+        lines = file.readlines()
+    for line in lines:
+        if line.strip() == pattern:
+            return "on"
+        elif line.strip() == f"# {pattern}":
+            return "off"
+    return "on"
+
+
 class AddWindow(CTkToplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -105,7 +134,7 @@ class AddWindow(CTkToplevel):
         if not match_found:
             with open(hostFile, "a") as file:
                 file.write(pattern + "\n")
-            self.master.master.web_frame.add_element(site_label_text, redirect_website_label_text)
+            self.master.master.web_frame.add_element(site_label_text, redirect_website_label_text, "on")
         else:
             print("already exist")
         self.destroy()
@@ -167,9 +196,15 @@ class WebFrame(CTkScrollableFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
         self.master = master
+        data = load_query(hostFile)
+        for pair in data:
+            site_text, redirect_website_text = pair
+            switch = get_query_state(hostFile, site_text, redirect_website_text)
+            self.add_element(site_text, redirect_website_text, switch)
 
-    def add_element(self, site_text, redirect_website_text):
+    def add_element(self, site_text, redirect_website_text, switch_state):
         entry = EntryFrame(self, site_text, redirect_website_text)
+        entry.switch_var.set(switch_state)
         entry.pack()
 
 
