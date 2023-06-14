@@ -115,7 +115,7 @@ class EntryFrame(CTkFrame):
         self.destroy()
 
 
-class WebFrame(CTkFrame):
+class WebFrame(CTkScrollableFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
         self.master = master
@@ -153,6 +153,10 @@ class App(CTk):
 
         self.top_frame = TopFrame(master=self)
         self.top_frame.grid(row=0, column=0, pady=10, sticky="we")
+
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
+
         self.web_frame = WebFrame(master=self, width=x, height=y - 70, border_width=5)
         self.web_frame.grid(row=1, column=0)
 
