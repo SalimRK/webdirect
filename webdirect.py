@@ -12,6 +12,8 @@ plusImg = CTkImage(Image.open(r"images/plusimage.png"))
 closed_trash_image = CTkImage(Image.open(r"images/closed_trash_can.png"))
 opened_trash_image = CTkImage(Image.open(r"images/open_trash_can.png"))
 send_image = CTkImage(Image.open(r"images/sendimg.png"))
+url_image = CTkImage(Image.open(r"images/URLimg.png"))
+redirect_image = CTkImage(Image.open(r"images/redirectimg.png"))
 
 
 def query(website, redirected):
@@ -22,22 +24,26 @@ def query(website, redirected):
 class AddWindow(CTkToplevel):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.geometry("300x300")
+        self.geometry("350x300")
         self.title("Add Site")
 
         self.site = CTkEntry(master=self, width=200)
         self.redirect_website = CTkEntry(master=self, width=200)
 
         site_label = CTkLabel(master=self, text="IP/Website: ")
+        site_label_img = CTkLabel(master=self, image=url_image, text="")
         redirect_site_label = CTkLabel(master=self, text="redirect to: ")
+        redirect_site_label_img = CTkLabel(master=self, image=redirect_image, text="")
 
-        self.addButton = CTkButton(master=self, command=self.add, text="add", image=send_image)
+        self.addButton = CTkButton(master=self, command=self.add, text="", image=send_image, height=100)
 
-        site_label.grid(row=0, column=0, padx=5, pady=20)
-        self.site.grid(row=0, column=1, padx=15, pady=20)
-        redirect_site_label.grid(row=1, column=0, padx=5, pady=20)
-        self.redirect_website.grid(row=1, column=1, padx=15, pady=20)
-        self.addButton.grid(row=2, column=0, columnspan=2, pady=20)
+        site_label_img.grid(row=0, column=0, padx=5, pady=20)
+        site_label.grid(row=0, column=1, padx=5, pady=20)
+        self.site.grid(row=0, column=2, padx=15, pady=20)
+        redirect_site_label_img.grid(row=1, column=0, padx=5, pady=20)
+        redirect_site_label.grid(row=1, column=1, padx=5, pady=20)
+        self.redirect_website.grid(row=1, column=2, padx=15, pady=20)
+        self.addButton.grid(row=2, column=0, columnspan=3, pady=20)
 
     def add(self):
         site_label_text = self.site.get()
