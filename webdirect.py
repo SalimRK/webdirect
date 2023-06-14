@@ -54,16 +54,25 @@ class AddWindow(CTkToplevel):
             f = open(hostFile, "a")
             f.write(pattern + "\n")
             f.close()
+            self.master.master.web_frame.add_element(site_label_text, redirect_website_label_text)
+        else:
+            print("already exist")
         self.destroy()
 
 
 class EntryFrame(CTkFrame):
-    def __init__(self, master, **kwargs):
+    def __init__(self, master, site_text, redirect_website_text, **kwargs):
         super().__init__(master, **kwargs)
         self.master = master
+        self.site_text = site_text
+        self.redirect_website_text = redirect_website_text
         # entry
-        self.site = CTkEntry(master=self, width=200, state="disabled")
-        self.redirect_website = CTkEntry(master=self, width=200, state="disabled")
+        self.site = CTkTextbox(master=self, width=200, height=30)
+        self.site.insert("0.0", site_text)
+        self.site.configure(state="disabled")
+        self.redirect_website = CTkTextbox(master=self, width=200, height=30)
+        self.redirect_website.insert("0.0", redirect_website_text)
+        self.redirect_website.configure(state="disabled")
 
         # switch
         self.switch_var = StringVar(value="off")
@@ -105,6 +114,10 @@ class WebFrame(CTkFrame):
         super().__init__(master, **kwargs)
         self.master = master
 
+    def add_element(self, site_text, redirect_website_text):
+        entry = EntryFrame(self, site_text, redirect_website_text)
+        entry.pack()
+
 
 class TopFrame(CTkFrame):
     def __init__(self, master):
@@ -123,7 +136,6 @@ class TopFrame(CTkFrame):
             self.master.add_window = AddWindow(self)
         else:
             self.master.add_window.focus()
-        # self.master.web_frame.add_clicked()
 
 
 class App(CTk):
