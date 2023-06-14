@@ -1,6 +1,7 @@
 import tkinter as tk
 from customtkinter import *
 from PIL import Image, ImageTk
+import re
 
 x = 800
 y = 500
@@ -14,7 +15,7 @@ send_image = CTkImage(Image.open(r"images/sendimg.png"))
 
 
 def query(website, redirected):
-    query_site = f"{website}         {redirected}\n"
+    query_site = f"{website}         {redirected}"
     return query_site
 
 
@@ -41,8 +42,19 @@ class AddWindow(CTkToplevel):
     def add(self):
         site_label_text = self.site.get()
         redirect_website_label_text = self.redirect_website.get()
-        print(site_label_text)
-        print(redirect_website_label_text)
+        pattern = query(site_label_text, redirect_website_label_text)
+        f = open(hostFile, "r")
+        match_found = False
+        for line in f:
+            if re.search(pattern, line):
+                match_found = True
+        f.close()
+
+        if not match_found:
+            f = open(hostFile, "a")
+            f.write(pattern + "\n")
+            f.close()
+        self.destroy()
 
 
 class EntryFrame(CTkFrame):
@@ -75,10 +87,6 @@ class EntryFrame(CTkFrame):
             print("offff")
         if self.switch_var.get() == "on":
             print("onnn")
-            # f = open(hostFile, "a")
-            # text = query(self.site.get(), self.redirect_website.get())
-            # f.write(text)
-            # f.close()
 
     # delete button animation methods
     def on_enter(self, event):
@@ -96,10 +104,6 @@ class WebFrame(CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
         self.master = master
-
-    # def add_clicked(self):
-    #     entry = EntryFrame(self)
-    #     entry.pack()
 
 
 class TopFrame(CTkFrame):
