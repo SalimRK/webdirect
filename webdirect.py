@@ -112,7 +112,7 @@ class EntryFrame(CTkFrame):
         self.redirect_website.configure(state="disabled")
 
         # switch
-        self.switch_var = StringVar(value="off")
+        self.switch_var = StringVar(value="on")
         self.switch = CTkSwitch(master=self, command=self.switch_event, variable=self.switch_var, onvalue="on",
                                 offvalue="off", fg_color="red")
         # delete button
@@ -131,10 +131,10 @@ class EntryFrame(CTkFrame):
     def switch_event(self):
         if self.switch_var.get() == "off":
             self.switch.configure(fg_color="red")
-            print("offff")
+            comment_query(hostFile, self.site_text, self.redirect_website_text)
         if self.switch_var.get() == "on":
             self.switch.configure(fg_color="red")
-            print("onnn")
+            uncomment_query(hostFile, self.site_text, self.redirect_website_text)
 
     # delete button animation methods
     def on_enter(self, event):
