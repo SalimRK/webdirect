@@ -6,8 +6,9 @@ webDirect is a user-friendly application that allows you to effortlessly manage 
 
 ## Installation
 
-Describe the step-by-step process for installing your project, including any prerequisites or dependencies.
+You can find the latest releases of the project in the [Releases](https://github.com/SalimRK/webdirect/releases/) section. Each release includes details about the changes, bug fixes, and new features.
 
+We recommend checking the releases regularly for any updates or improvements to the project.
 ## Usage
 
 The "webDirect" app is a user-friendly tool that allows you to control how websites are redirected on your computer. It has a simple and intuitive interface.
