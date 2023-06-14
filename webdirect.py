@@ -2,12 +2,13 @@ import tkinter as tk
 from customtkinter import *
 from PIL import Image, ImageTk
 import re
+import os
 
 x = 800
 y = 500
 
-hostFile = "hosts"
-icon_path = "images/webdirectlogo.ico"
+hostFile = os.path.join("C:", "Windows", "System32", "drivers", "etc", "hosts")
+icon_path = os.path.join("images/webdirectlogo.ico")
 plusImg = CTkImage(Image.open(r"images/plusimage.png"))
 closed_trash_image = CTkImage(Image.open(r"images/closed_trash_can.png"))
 opened_trash_image = CTkImage(Image.open(r"images/open_trash_can.png"))
