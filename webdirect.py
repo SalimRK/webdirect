@@ -83,7 +83,7 @@ class EntryFrame(CTkFrame):
         # switch
         self.switch_var = StringVar(value="off")
         self.switch = CTkSwitch(master=self, command=self.switch_event, variable=self.switch_var, onvalue="on",
-                                offvalue="off")
+                                offvalue="off", fg_color="red")
         # delete button
         self.deleteButton = CTkButton(master=self, text="delete", command=self.delete_clicked,
                                       compound='left', image=closed_trash_image, fg_color="red")
@@ -99,8 +99,10 @@ class EntryFrame(CTkFrame):
     # switch methods
     def switch_event(self):
         if self.switch_var.get() == "off":
+            self.switch.configure(fg_color="red")
             print("offff")
         if self.switch_var.get() == "on":
+            self.switch.configure(fg_color="red")
             print("onnn")
 
     # delete button animation methods
